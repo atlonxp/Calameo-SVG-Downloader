@@ -41,8 +41,8 @@ for table in book_tables:
 
 # In cases you want to download some particular books, you can manually define books_list
 # books_list = [
-#     'https://www.calameo.com/read/00077772151d39c98fbab?authid=5OmdpYZALnKk&region=uk',
-#     'https://www.calameo.com/read/00077772164411330cf35?authid=K0Yqvcafhmlu&region=uk'
+#     {'name': 'Book A', 'url': 'https://www.calameo.com/read/00077772151d39c98fbab?authid=5OmdpYZALnKk&region=uk'},
+#     {'name': 'Book B', 'url': 'https://www.calameo.com/read/00077772164411330cf35?authid=K0Yqvcafhmlu&region=uk'},
 # ]
 
 print('''
