@@ -49,7 +49,10 @@ for book in books_list:
     driver.get(book['url'])
     iframe = driver.find_element_by_tag_name("iframe")
     driver.switch_to.frame(iframe)
-    time.sleep(5)
+
+    # Let wait for 10s for loading page           
+    time.sleep(10)
+    
     imgs = driver.find_elements(By.XPATH, '//img[@class="page"]')
     book_id = imgs[0].get_attribute('src').replace(calameoassets_url, '').split('/')[0]
     print(f'\t* Book ID: {book_id}')
