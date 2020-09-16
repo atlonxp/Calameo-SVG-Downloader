@@ -25,9 +25,9 @@ driver.get('https://global.oup.com/education/support-learning-anywhere/key-resou
 book_tables = driver.find_elements(By.XPATH, '//div[@class="content_block full_width"]/div/table/tbody')
 
 print('''
-********************************
-Collect list of books
-********************************
+************************************
+Collect list of books on the website
+************************************
 ''')
 books_list = []
 for table in book_tables:
@@ -39,10 +39,16 @@ for table in book_tables:
         books_list.append({'name': name, 'url': url})
         print(f'> {name} - {url}')
 
+# In cases you want to download some particular books, you can manually define books_list
+# books_list = [
+#     'https://www.calameo.com/read/00077772151d39c98fbab?authid=5OmdpYZALnKk&region=uk',
+#     'https://www.calameo.com/read/00077772164411330cf35?authid=K0Yqvcafhmlu&region=uk'
+# ]
+
 print('''
-********************************
+************************************
 Download all books
-********************************
+************************************
 ''')
 for book in books_list:
     print(f'> Go to {book["url"]}')
@@ -50,8 +56,14 @@ for book in books_list:
     iframe = driver.find_element_by_tag_name("iframe")
     driver.switch_to.frame(iframe)
 
-    # Let wait for 10s for loading page           
-    time.sleep(10)
+    imgs = []
+    counter = 0
+    while len(imgs) == 0:
+        imgs = driver.find_elements(By.XPATH, '//img[@class="page"]')
+        time.sleep(1)
+        counter += 1
+        if counter > 20:
+            raise Exception("Book ID is unreachable")
     
     imgs = driver.find_elements(By.XPATH, '//img[@class="page"]')
     book_id = imgs[0].get_attribute('src').replace(calameoassets_url, '').split('/')[0]
